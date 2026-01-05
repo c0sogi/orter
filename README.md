@@ -11,6 +11,36 @@ uvx orter
 
 ## Usage
 
+```bash
+ Usage: orter [OPTIONS] COMMAND [ARGS]...
+
+ OpenRouter API CLI
+
+╭─ Options ────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ --api-key          TEXT   Override OPENROUTER_API_KEY                                                                │
+│ --base-url         TEXT   Base URL (default: https://openrouter.ai) [default: https://openrouter.ai]                 │
+│ --referer          TEXT   HTTP-Referer header (optional)                                                             │
+│ --title            TEXT   X-Title header (optional)                                                                  │
+│ --timeout-s        FLOAT  Timeout seconds [default: 60.0]                                                            │
+│ --help                    Show this message and exit.                                                                │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ Commands ───────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ models        Models API                                                                                             │
+│ chat          Chat Completions API                                                                                   │
+│ generation    Generation stats API                                                                                   │
+│ raw           Call any OpenRouter endpoint                                                                           │
+│ analytics     Analytics API                                                                                          │
+│ credits       Credits API                                                                                            │
+│ embeddings    Embeddings API                                                                                         │
+│ endpoints     Endpoints API                                                                                          │
+│ parameters    Parameters API                                                                                         │
+│ providers     Providers API                                                                                          │
+│ keys          API Keys API                                                                                           │
+│ oauth         OAuth API                                                                                              │
+│ completions   Completions API                                                                                        │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+```
+
 ### Environment Variable Setup
 
 You can set the `OPENROUTER_API_KEY` environment variable, or use the `--api-key` option with each command.
@@ -21,17 +51,17 @@ List available models.
 
 ```bash
 # Default output: human-readable table + default limit(20)
-uv run orter models
-uv run orter models list --limit 20
+uvx orter models
+uvx orter models list --limit 20
 
 # Search
-uv run orter models --search gpt-4o --limit 20
+uvx orter models --search gpt-4o --limit 20
 
 # Output in JSON format
-uv run orter models --json
+uvx orter models --json
 
 # Get specific model information
-uv run orter models get openai/gpt-4o-mini
+uvx orter models get openai/gpt-4o-mini
 ```
 
 ### Chat Completions
@@ -40,22 +70,22 @@ Send chat completion requests.
 
 ```bash
 # Basic usage (recommended)
-uv run orter chat completions -m "Hello"
+uvx orter chat completions -m "Hello"
 
 # Specify model
-uv run orter chat completions -m "Print Hello World in Python" --model "openai/gpt-4o"
+uvx orter chat completions -m "Print Hello World in Python" --model "openai/gpt-4o"
 
 # Enable streaming
-uv run orter chat completions -m "Write a simple story" --stream
+uvx orter chat completions -m "Write a simple story" --stream
 
 # Include system message
-uv run orter chat completions -m "User message" --system "You are a helpful AI assistant."
+uvx orter chat completions -m "User message" --system "You are a helpful AI assistant."
 
 # Output in JSON format
-uv run orter chat completions -m "Hello" --json
+uvx orter chat completions -m "Hello" --json
 
 # Using additional parameters
-uv run orter chat completions -m "Write a creative story" \
+uvx orter chat completions -m "Write a creative story" \
   --temperature 0.9 \
   --max-tokens 500 \
   --model "openai/gpt-4o-mini"
@@ -67,17 +97,17 @@ Query generation statistics.
 
 ```bash
 # Get generation statistics (using id from chat completions response)
-uv run orter generation get gen-xxxxxxxxxxxxxx
+uvx orter generation get gen-xxxxxxxxxxxxxx
 
 # Output in JSON format
-uv run orter generation get gen-xxxxxxxxxxxxxx --json
+uvx orter generation get gen-xxxxxxxxxxxxxx --json
 ```
 
 ### Raw (full API access)
 
 ```bash
-uv run orter raw request GET api/v1/models
-uv run orter raw request POST api/v1/chat/completions \
+uvx orter raw request GET api/v1/models
+uvx orter raw request POST api/v1/chat/completions \
   --body '{"model":"openai/gpt-4o-mini","messages":[{"role":"user","content":"hi"}]}'
 ```
 
@@ -96,13 +126,13 @@ uv run orter raw request POST api/v1/chat/completions \
 ### Simple Question
 
 ```bash
-uv run orter chat completions -m "What are the advantages of Python?"
+uvx orter chat completions -m "What are the advantages of Python?"
 ```
 
 ### Code Generation
 
 ```bash
-uv run orter chat completions -m "Create a simple calculator function in Python" \
+uvx orter chat completions -m "Create a simple calculator function in Python" \
   --model "openai/gpt-4o-mini" \
   --temperature 0.7
 ```
@@ -110,7 +140,7 @@ uv run orter chat completions -m "Create a simple calculator function in Python"
 ### Streaming Response
 
 ```bash
-uv run orter chat completions -m "Write a long story" --stream
+uvx orter chat completions -m "Write a long story" --stream
 ```
 
 ## License
